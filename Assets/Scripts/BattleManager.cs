@@ -8,14 +8,15 @@ public class BattleManager : MonoBehaviour
 {
     public enum Phase
     {
-        PlayerThinking,
-        PlayerActing,
-        EnemyActing,
+        PlayerTurn,
+        EnemyTurn,
         BattleOver
     }
 
     [SerializeField] public float maxPlayerHealth = 100;
     [SerializeField] public float maxEnemyHealth = 1000;
+
+    public static BattleManager Instance { get; private set; } = null;
 
     public float playerHealth;
     public float enemyHealth;
@@ -30,7 +31,18 @@ public class BattleManager : MonoBehaviour
     public UnityEvent playerStatusesUpdated;
     public UnityEvent enemyStatusesUpdated;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     void Start()
     {
         playerHealth = maxPlayerHealth;
@@ -62,6 +74,8 @@ public class BattleManager : MonoBehaviour
 
     public void InflictPlayerStatus(StatusEffect status)
     {
+        if (status == null) return;
+
         foreach(StatusEffect existingStatus in playerStatuses)
         {
             if (existingStatus.effect == status.effect)
@@ -85,6 +99,8 @@ public class BattleManager : MonoBehaviour
 
     public void InflictEnemyStatus(StatusEffect status)
     {
+        if (status == null) return;
+
         foreach (StatusEffect existingStatus in enemyStatuses)
         {
             if (existingStatus.effect == status.effect)
@@ -105,11 +121,5 @@ public class BattleManager : MonoBehaviour
             enemyStatuses.Remove(status);
             enemyStatusesUpdated.Invoke();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
