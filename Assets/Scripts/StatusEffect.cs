@@ -5,14 +5,19 @@ using UnityEngine;
 [System.Serializable]
 public class StatusEffect : MonoBehaviour
 {
+    public string displayName = "";
+    public string description = "";
+
     public enum Effect
     {
         Poisoned,
         Frozen,
-        AttackUp
+        AttackUp,
+        Attackdown
     }
 
     public Effect effect;
+    public float intensity;
     public int length;
     public int turnsRemaining;
 
