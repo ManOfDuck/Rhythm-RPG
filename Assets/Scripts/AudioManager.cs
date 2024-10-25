@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
-
     public static AudioManager Instance { get; private set; }
 
     public event EventHandler<float> OnSessionFinished;
@@ -40,7 +39,7 @@ public class AudioManager : MonoBehaviour
     private int m_CodeIndex = 4;
 
     /* If the rendering is ahead of the music, increase this number */
-    private int m_AddedSampleDelay = 0;
+    private int m_AddedSampleDelay = 2000;
 
     private int m_ActiveCount = -1;
     private float m_Score = 0.0f;
@@ -150,22 +149,22 @@ public class AudioManager : MonoBehaviour
         m_Source.PlayScheduled(m_StartTime);
 
         // TESTING ONLY
-        Invoke("TestActivate", 0.0f);
-        OnSessionFinished += AudioManager_OnSessionFinished;
+        //Invoke("TestActivate", 0.0f);
+        //OnSessionFinished += AudioManager_OnSessionFinished;
     }
 
-    // TESTING ONLY
-    private void AudioManager_OnSessionFinished(object sender, float e)
-    {
-        Debug.Log(e);
-        Invoke("TestActivate", 0.0f);
-    }
+    //// TESTING ONLY
+    //private void AudioManager_OnSessionFinished(object sender, float e)
+    //{
+    //    Debug.Log(e);
+    //    Invoke("TestActivate", 0.0f);
+    //}
 
-    // TESTING ONLY
-    private void TestActivate()
-    {
-        Activate(8, new Vector2(-3, 6), new Vector2(-3, -4f), new Vector2(-1, 6), new Vector2(-1, -4f), new Vector2(1, 6), new Vector2(1, -4f), new Vector2(3, 6), new Vector2(3, -4f), KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4);
-    }
+    //// TESTING ONLY
+    //private void TestActivate()
+    //{
+    //    Activate(8, new Vector2(-3, 6), new Vector2(-3, -4f), new Vector2(-1, 6), new Vector2(-1, -4f), new Vector2(1, 6), new Vector2(1, -4f), new Vector2(3, 6), new Vector2(3, -4f), KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4);
+    //}
 
     // Update is called once per frame
     void Update()
