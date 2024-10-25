@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -39,37 +40,53 @@ public class AudioManager : MonoBehaviour
     private int m_CodeIndex = 4;
 
     /* If the rendering is ahead of the music, increase this number */
-    private int m_AddedSampleDelay = 18000;
+    private int m_AddedSampleDelay = 0;
 
     private int m_ActiveCount = -1;
     private float m_Score = 0.0f;
     private int m_KeyPresses = 0;
     private int m_ExpectedPresses = 0;
 
-    struct Drop
+    private Lane[] m_Lanes = new Lane[4];
+
+    struct Lane
+    {
+        public Vector2 startPos;
+        public Vector2 endPos;
+        public KeyCode code;
+
+        public Lane(Vector2 s, Vector2 e, KeyCode c)
+        {
+            startPos = s;
+            endPos = e;
+            code = c;
+        }
+    }
+
+    class Drop
     {
         private GameObject m_DropInstance;
-        private int m_DropCode;
+        private Lane m_Lane;
         private int m_StartSample;
         private int m_EndSample;
         private float m_FadeCounter;
 
-        public Drop(GameObject dropInstance, int dropCode, int startSample, int endSample)
+        public Drop(GameObject dropInstance, Lane lane, int startSample, int endSample)
         {
             m_DropInstance = dropInstance;
-            m_DropCode = dropCode;
+            m_Lane = lane;
             m_StartSample = startSample;
             m_EndSample = endSample;
             m_FadeCounter = 0.0f;
         }
 
         /* Updates the drop based on where we are in the song, returns false if the drop is finished fading out */ 
-        public bool Update(ref Drop d, int currentSample, float upperBound, float lowerBound)
+        public bool Update(int currentSample)
         {
             // We have hit the bottom bound
             if (currentSample >= m_EndSample)
             {
-                m_DropInstance.transform.position = new Vector2(m_DropInstance.transform.position.x, lowerBound);
+                m_DropInstance.transform.position = m_Lane.endPos;
 
                 // We are still fading out
                 if (m_FadeCounter < 0.25f)
@@ -86,8 +103,7 @@ public class AudioManager : MonoBehaviour
             }
 
             // We have not hit the bottom bound and should move down
-            float newYPos = Mathf.Lerp(upperBound, lowerBound, Margin(currentSample));
-            m_DropInstance.transform.position = new Vector2(m_DropInstance.transform.position.x, newYPos);
+            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.endPos, Margin(currentSample));
             return true;
         }
 
@@ -97,9 +113,9 @@ public class AudioManager : MonoBehaviour
             return (float)(currentSample - m_StartSample) / (float)(m_EndSample - m_StartSample);
         }
 
-        public int GetDropCode()
+        public Lane GetLane()
         {
-            return m_DropCode;
+            return m_Lane;
         }
     }
 
@@ -134,7 +150,7 @@ public class AudioManager : MonoBehaviour
         m_Source.PlayScheduled(m_StartTime);
 
         // TESTING ONLY
-        Invoke("TestActivate", 1.0f);
+        Invoke("TestActivate", 0.0f);
         OnSessionFinished += AudioManager_OnSessionFinished;
     }
 
@@ -142,13 +158,13 @@ public class AudioManager : MonoBehaviour
     private void AudioManager_OnSessionFinished(object sender, float e)
     {
         Debug.Log(e);
-        Invoke("TestActivate", 1.0f);
+        Invoke("TestActivate", 0.0f);
     }
 
     // TESTING ONLY
     private void TestActivate()
     {
-        Activate(8);
+        Activate(8, new Vector2(-3, 6), new Vector2(-3, -4f), new Vector2(-1, 6), new Vector2(-1, -4f), new Vector2(1, 6), new Vector2(1, -4f), new Vector2(3, 6), new Vector2(3, -4f), KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4);
     }
 
     // Update is called once per frame
@@ -179,7 +195,7 @@ public class AudioManager : MonoBehaviour
             {
                 Vector2 spawnPoint = new Vector2(transform.position.x + ((m_SongCodes[m_CodeIndex] - 2.5f) * 2), transform.position.y);
                 GameObject instance = Instantiate(m_DropPrefab, spawnPoint, Quaternion.identity);
-                m_Drops.Add(new Drop(instance, m_SongCodes[m_CodeIndex], m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4)));
+                m_Drops.Add(new Drop(instance, m_Lanes[m_SongCodes[m_CodeIndex] - 1], m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4)));
                 m_ActiveCount--;
             }
 
@@ -190,14 +206,10 @@ public class AudioManager : MonoBehaviour
         int i = 0;
         while (i < m_Drops.Count)
         {
-            Drop d = m_Drops[i];
-            if (!d.Update(ref d, currentSample, transform.position.y + 6, transform.position.y - 4))
+            if (!m_Drops[i].Update(currentSample))
                 m_Drops.RemoveAt(i);
             else
-            {
-                m_Drops[i] = d;
                 i++;
-            }
         }
 
         // Handle being out of active drops
@@ -221,45 +233,27 @@ public class AudioManager : MonoBehaviour
 
         // Handle input
         Drop next = m_Drops[0];
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        for (int f = 0; f < 4; f++)
         {
-            m_KeyPresses++;
-            if (next.GetDropCode() == 1)
+            if (Input.GetKeyDown(m_Lanes[f].code))
             {
-                m_Score += next.Margin(currentSample);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            m_KeyPresses++;
-            if (next.GetDropCode() == 2)
-            {
-                m_Score += next.Margin(currentSample);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            m_KeyPresses++;
-            if (next.GetDropCode() == 3)
-            {
-                m_Score += next.Margin(currentSample);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            m_KeyPresses++;
-            if (next.GetDropCode() == 4)
-            {
-                m_Score += next.Margin(currentSample);
+                m_KeyPresses++;
+                if (next.GetLane().code == m_Lanes[f].code)
+                    m_Score += next.Margin(currentSample);
             }
         }
     }
 
-    public void Activate(int beats)
+    public void Activate(int beats, Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2, Vector2 s3, Vector2 e3, Vector2 s4, Vector2 e4, KeyCode c1, KeyCode c2, KeyCode c3, KeyCode c4)
     {
         m_ActiveCount = beats;
         m_Score = 0.0f;
         m_KeyPresses = 0;
         m_ExpectedPresses = beats;
+
+        m_Lanes[0] = new Lane(s1, e1, c1);
+        m_Lanes[1] = new Lane(s2, e2, c2);
+        m_Lanes[2] = new Lane(s3, e3, c3);
+        m_Lanes[3] = new Lane(s4, e4, c4);
     }
 }
