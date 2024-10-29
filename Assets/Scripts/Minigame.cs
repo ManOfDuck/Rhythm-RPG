@@ -6,6 +6,7 @@ using UnityEngine;
 public class Minigame : ScriptableObject
 {
     [SerializeField] public int beatLength;
+    [SerializeField] public float maxHitMargin;
     [SerializeField] private Lane lane1;
     [SerializeField] private Lane lane2;
     [SerializeField] private Lane lane3;
@@ -16,7 +17,7 @@ public class Minigame : ScriptableObject
     public void StartMinigame(PlayerMove callback)
     {
         linkedMove = callback;
-        AudioManager.Instance.Activate(beatLength, lane1.startPos, lane1.endPos, lane2.startPos, lane2.endPos,
+        AudioManager.Instance.Activate(beatLength, maxHitMargin, lane1.startPos, lane1.endPos, lane2.startPos, lane2.endPos,
             lane3.startPos, lane3.endPos, lane4.startPos, lane4.endPos, lane1.key, lane2.key, lane3.key, lane4.key);
         AudioManager.Instance.OnSessionFinished += MinigameFinished;
     }
