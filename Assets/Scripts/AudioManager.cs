@@ -53,12 +53,14 @@ public class AudioManager : MonoBehaviour
         public Vector2 startPos;
         public Vector2 endPos;
         public KeyCode code;
+        public int id;
 
-        public Lane(Vector2 s, Vector2 e, KeyCode c)
+        public Lane(Vector2 s, Vector2 e, KeyCode c, int i)
         {
             startPos = s;
             endPos = e;
             code = c;
+            id = i;
         }
     }
 
@@ -115,6 +117,16 @@ public class AudioManager : MonoBehaviour
         public Lane GetLane()
         {
             return m_Lane;
+        }
+
+        public bool DoesClickHit()
+        {
+            if (m_DropInstance.TryGetComponent<Collider2D>(out Collider2D collider))
+            {
+                Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                return collider.OverlapPoint(mousePoint);
+            }
+            else return true;
         }
     }
 
@@ -221,8 +233,12 @@ public class AudioManager : MonoBehaviour
                     OnSessionFinished?.Invoke(this, 0.0f);
                 else
                 {
+                    print("Key Presses:" + m_KeyPresses);
+                    print("Expected Presses:" + m_ExpectedPresses);
+                    print("overall score: " + m_Score);
                     float percent = m_Score / ((m_KeyPresses > m_ExpectedPresses) ? m_KeyPresses : m_ExpectedPresses);
-                    percent = (percent > 1.0f) ? (2.0f - percent) : percent;
+                    print("percent: " + percent);
+                    //percent = (percent > 1.0f) ? (2.0f - percent) : percent;
                     OnSessionFinished?.Invoke(this, percent);
                 }
                 m_ActiveCount = -1;
@@ -232,13 +248,29 @@ public class AudioManager : MonoBehaviour
 
         // Handle input
         Drop next = m_Drops[0];
+        List<KeyCode> codesCounted = new();
         for (int f = 0; f < 4; f++)
         {
-            if (Input.GetKeyDown(m_Lanes[f].code))
+            Lane lane = m_Lanes[f];
+            if (Input.GetKeyDown(lane.code))
             {
-                m_KeyPresses++;
-                if (next.GetLane().code == m_Lanes[f].code)
-                    m_Score += next.Margin(currentSample);
+                if (!codesCounted.Contains(lane.code))
+                {
+                    m_KeyPresses++;
+                    codesCounted.Add(lane.code);
+                }
+               
+                if (next.GetLane().id == lane.id && next.GetLane().code == lane.code)
+                {
+                    if(lane.code == KeyCode.Mouse0 && !next.DoesClickHit())
+                    {
+                        return;
+                    }
+                    float percentDone = next.Margin(currentSample);
+                    float dropScore = percentDone > 1.0f ? 2.0f - percentDone : percentDone;
+                    print("drop score: " + dropScore);
+                    m_Score += dropScore;
+                } 
             }
         }
     }
@@ -250,9 +282,9 @@ public class AudioManager : MonoBehaviour
         m_KeyPresses = 0;
         m_ExpectedPresses = beats;
 
-        m_Lanes[0] = new Lane(s1, e1, c1);
-        m_Lanes[1] = new Lane(s2, e2, c2);
-        m_Lanes[2] = new Lane(s3, e3, c3);
-        m_Lanes[3] = new Lane(s4, e4, c4);
+        m_Lanes[0] = new Lane(s1, e1, c1, 0);
+        m_Lanes[1] = new Lane(s2, e2, c2, 1);
+        m_Lanes[2] = new Lane(s3, e3, c3, 2);
+        m_Lanes[3] = new Lane(s4, e4, c4, 3);
     }
 }

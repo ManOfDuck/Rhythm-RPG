@@ -21,15 +21,15 @@ MonoBehaviour:
   lane2:
     startPos: {x: -1, y: 6}
     endPos: {x: -1, y: -4}
-    key: 50
+    key: 49
     prefab: {fileID: 5314307743801612315, guid: 65a7b99340ff67043b14e7e0e40f9aba, type: 3}
   lane3:
     startPos: {x: 1, y: 6}
     endPos: {x: 1, y: -4}
-    key: 51
+    key: 49
     prefab: {fileID: 5314307743801612315, guid: 65a7b99340ff67043b14e7e0e40f9aba, type: 3}
   lane4:
     startPos: {x: 3, y: 6}
     endPos: {x: 3, y: -4}
-    key: 52
+    key: 49
     prefab: {fileID: 5314307743801612315, guid: 65a7b99340ff67043b14e7e0e40f9aba, type: 3}

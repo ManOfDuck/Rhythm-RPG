@@ -68,13 +68,14 @@ public class BattleManager : MonoBehaviour
     {
         enemyHealth += amount;
         enemyHealed.Invoke(amount);
-        print("Enemy healed for " + amount + ", new health at " + playerHealth);
+        print("Enemy healed for " + amount + ", new health at " + enemyHealth);
     }
 
     public void HurtEnemy(float amount)
     {
+        print(enemyHealth);
         enemyHealth -= amount;
-        print("Enemy hurt for " + amount + ", new health at " + playerHealth);
+        print("Enemy hurt for " + amount + ", new health at " + enemyHealth);
     }
 
     public void InflictPlayerStatus(StatusEffect status)
