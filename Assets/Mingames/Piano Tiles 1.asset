@@ -13,28 +13,30 @@ MonoBehaviour:
   m_Name: Piano Tiles 1
   m_EditorClassIdentifier: 
   beatLength: 12
+  beatsPerDrop: 4
   maxHitMargin: 1
+  spawnBehavior: 1
   lane1:
     startPos: {x: -3, y: 6}
     endPos: {x: -3, y: -4}
-    despawnPercent: 1.15
+    despawnPercent: 1.2
     prefab: {fileID: 5314307743801612315, guid: 65a7b99340ff67043b14e7e0e40f9aba, type: 3}
     code: 323
   lane2:
     startPos: {x: -1, y: 6}
     endPos: {x: -1, y: -4}
-    despawnPercent: 1.15
+    despawnPercent: 1.2
     prefab: {fileID: 5314307743801612315, guid: 1a451559b862b4ae58d8b2113193f7a7, type: 3}
     code: 323
   lane3:
     startPos: {x: 1, y: 6}
     endPos: {x: 1, y: -4}
-    despawnPercent: 1.15
+    despawnPercent: 1.2
     prefab: {fileID: 5314307743801612315, guid: 65a7b99340ff67043b14e7e0e40f9aba, type: 3}
     code: 323
   lane4:
     startPos: {x: 3, y: 6}
     endPos: {x: 3, y: -4}
-    despawnPercent: 1.15
+    despawnPercent: 1.2
     prefab: {fileID: 5314307743801612315, guid: 65a7b99340ff67043b14e7e0e40f9aba, type: 3}
     code: 323

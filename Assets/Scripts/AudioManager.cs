@@ -46,6 +46,8 @@ public class AudioManager : MonoBehaviour
     private int m_KeyPresses = 0;
     private int m_ExpectedPresses = 0;
     private float m_MaxMargin = 0.1f;
+    private int m_BeatsPerDrop = 4;
+    private bool m_SpawnDropsEarly = true;
 
     private Lane[] m_Lanes = new Lane[4];
 
@@ -173,10 +175,11 @@ public class AudioManager : MonoBehaviour
             // Spawn the beat in a position based on the value of the current song code
             if (m_ActiveCount > 0)
             {
-                Vector2 spawnPoint = new Vector2(transform.position.x + ((m_SongCodes[m_CodeIndex] - 2.5f) * 2), transform.position.y);
+                int codeIndex = m_SpawnDropsEarly ? m_CodeIndex + m_BeatsPerDrop : m_CodeIndex;
+                Vector2 spawnPoint = new Vector2(transform.position.x + ((m_SongCodes[codeIndex] - 2.5f) * 2), transform.position.y);
                 Lane lane = m_Lanes[m_SongCodes[m_CodeIndex] - 1];
                 GameObject instance = Instantiate(lane.prefab, spawnPoint, Quaternion.identity);
-                m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4), m_MaxMargin));
+                m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * m_BeatsPerDrop), m_MaxMargin));
                 m_ActiveCount--;
             }
 
@@ -249,13 +252,15 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Activate(int beats, float maxMargin, Lane lane1, Lane lane2, Lane lane3, Lane lane4)
+    public void Activate(int beats, float maxMargin, int beatsPerDrop, bool spawnDropsEarly, Lane lane1, Lane lane2, Lane lane3, Lane lane4)
     {
         m_ActiveCount = beats;
         m_Score = 0.0f;
         m_KeyPresses = 0;
         m_ExpectedPresses = beats;
         m_MaxMargin = maxMargin;
+        m_BeatsPerDrop = beatsPerDrop;
+        m_SpawnDropsEarly = spawnDropsEarly;
 
         m_Lanes[0] = lane1;
         lane1.Id = 0;

@@ -5,8 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Minigame")]
 public class Minigame : ScriptableObject
 {
+    private enum SpawnBehavior
+    {
+        SpawnOnBeat,
+        ReachEndOnBeat
+    }
     [SerializeField] public int beatLength;
-    [SerializeField] public float maxHitMargin;
+    [SerializeField] public int beatsPerDrop = 4;
+    [SerializeField] public float maxHitMargin = 0.15f;
+    [SerializeField] private SpawnBehavior spawnBehavior = SpawnBehavior.ReachEndOnBeat;
     [SerializeField] private Lane lane1;
     [SerializeField] private Lane lane2;
     [SerializeField] private Lane lane3;
@@ -17,7 +24,8 @@ public class Minigame : ScriptableObject
     public void StartMinigame(PlayerMove callback)
     {
         linkedMove = callback;
-        AudioManager.Instance.Activate(beatLength, maxHitMargin, lane1, lane2, lane3, lane4);
+        bool spawnDropsEarly = spawnBehavior == SpawnBehavior.SpawnOnBeat;
+        AudioManager.Instance.Activate(beatLength, maxHitMargin, beatsPerDrop, spawnDropsEarly, lane1, lane2, lane3, lane4);
         AudioManager.Instance.OnSessionFinished += MinigameFinished;
     }
 
