@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e590f43a58d85447ead8523d35797d8f, type: 3}
+  m_Name: Guitar Hero
+  m_EditorClassIdentifier: 
+  instrument: 2
+  stage: {fileID: 0}
+  beatLength: 96
+  beatsPerDrop: 4
+  maxHitMargin: 0.15
+  spawnBehavior: 1
+  lane1:
+    startPos: {x: 4, y: 0}
+    endPos: {x: -4, y: 1}
+    despawnPercent: 1.05
+    prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
+    code: 32
+  lane2:
+    startPos: {x: 4, y: 0}
+    endPos: {x: -4, y: 2}
+    despawnPercent: 1.05
+    prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
+    code: 32
+  lane3:
+    startPos: {x: 4, y: 0}
+    endPos: {x: -4, y: 3}
+    despawnPercent: 1.05
+    prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
+    code: 32
+  lane4:
+    startPos: {x: 4, y: 0}
+    endPos: {x: -4, y: 4}
+    despawnPercent: 1.05
+    prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
+    code: 32

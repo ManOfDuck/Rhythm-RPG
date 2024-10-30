@@ -7,6 +7,15 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
+    public enum Instrument
+    {
+        Marimba,
+        Drums,
+        Violin,
+        Piano,
+        eDrums,
+        guitar
+    }
     public static AudioManager Instance { get; private set; }
 
     public event EventHandler<float> OnSessionFinished;
@@ -17,10 +26,14 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private int m_BPM = 120;
 
-    [SerializeField]
-    private GameObject m_DropPrefab;
+    [SerializeField] private InstrumentPlayer marimbaPlayer;
+    [SerializeField] private InstrumentPlayer drumsPlayer;
+    [SerializeField] private InstrumentPlayer violinPlayer;
+    [SerializeField] private InstrumentPlayer pianoPlayer;
+    [SerializeField] private InstrumentPlayer eDrumsPlayer;
+    [SerializeField] private InstrumentPlayer guitarPlayer;
 
-    private AudioSource m_Source;
+    private AudioSource MainSource;
 
     private int m_SamplesPerBeat = 0;
     private int m_LastBeatSample = 0;
@@ -28,18 +41,107 @@ public class AudioManager : MonoBehaviour
     private double m_StartTime = 0.0;
 
     private List<Drop> m_Drops = new List<Drop>();
-
-    private int[] m_SongCodes =
+    private Instrument _currentInstrument;
+    private Instrument CurrentInstrument
     {
-        0, 0, 0, 0,     1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4,
-        1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4,
-        1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4,
-        1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4,     1, 2, 3, 4
+        get
+        {
+            return _currentInstrument;
+        }
+        set
+        {
+            _currentInstrument = value;
+            switch (value)
+            {
+                case Instrument.Marimba:
+                    currentPlayer = marimbaPlayer;
+                    currentChart = MarimbaChart;
+                    break;
+                case Instrument.Drums:
+                    currentPlayer = drumsPlayer;
+                    currentChart = DrumChart;
+                    break;
+                case Instrument.Violin:
+                    currentPlayer = violinPlayer;
+                    currentChart = HornChart;
+                    break;
+                case Instrument.Piano:
+                    currentPlayer = pianoPlayer;
+                    currentChart = MarimbaChart;
+                    break;
+                case Instrument.eDrums:
+                    currentPlayer = eDrumsPlayer;
+                    currentChart = DrumChart;
+                    break;
+                case Instrument.guitar:
+                    currentPlayer = guitarPlayer;
+                    currentChart = HornChart;
+                    break;
+                default:
+                    currentChart = TestChart;
+                    return;
+            }
+        }
+    }
+    private InstrumentPlayer currentPlayer;
+    private int[] currentChart;
+    #region Charts
+    private int[] TestChart =
+    {
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
+        1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,     1, 0, 0, 0,
     };
+
+    private int[] MarimbaChart = {
+
+        1, 3, 0, 1,     3, 0, 1, 3,     0, 1, 3, 0,     1, 3, 0, 3,
+        4, 3, 2, 4,     3, 2, 4, 3,     2, 4, 3, 2,     4, 3, 2, 3,
+        3, 0, 4, 0,     2, 1, 2, 3,     0, 4, 0, 2,     1, 2, 1, 0,
+        2, 1, 2, 3,     3, 2, 3, 4,     2, 1, 2, 3,     1, 2, 3, 4,
+        0, 0, 3, 4,     0, 2, 3, 0,     1, 2, 0, 2,     1, 0, 3, 2,
+        0, 4, 3, 0,     3, 4, 0, 2,     3, 0, 1, 2,     0, 2, 1, 0,
+        2, 1, 2, 3,     3, 2, 3, 4,     2, 1, 2, 3,     3, 2, 3, 4,
+        2, 1, 3, 2,     3, 2, 4, 3,     3, 2, 1, 4,     3, 2, 3, 4
+
+    };
+
+    int[] DrumChart = {
+
+        4, 3, 2, 1,     3, 2, 1, 4,     3, 4, 3, 1,     3, 1, 2, 3,
+        1, 0, 0, 1,     3, 0, 0, 3,     0, 3, 0, 1,     3, 1, 0, 3,
+        1, 0, 0, 1,     3, 0, 0, 3,     0, 3, 0, 1,     3, 1, 0, 3,
+        3, 3, 3, 2,     3, 3, 2, 3,     3, 2, 3, 3,     3, 2, 1, 3,
+        1, 3, 3, 4,     4, 3, 3, 2,     2, 3, 3, 1,     3, 1, 3, 4,
+        1, 3, 3, 4,     4, 3, 3, 2,     2, 1, 0, 2,     0, 1, 0, 2,
+        4, 4, 4, 3,     3, 2, 2, 1,     1, 3, 3, 1,     3, 1, 3, 4,
+        4, 3, 2, 1,     3, 1, 3, 2,     4, 3, 1, 4,     3, 1, 3, 2
+
+    };
+
+    int[] HornChart = {
+
+        3, 0, 0, 3,     0, 3, 0, 0,     0, 0, 0, 0,     0, 0, 0, 0,
+        0, 0, 3, 0,     4, 0, 2, 0,     3, 0, 1, 0,     2, 0, 1, 0,
+        3, 0, 0, 0,     0, 0, 2, 0,     0, 0, 0, 0,     0, 0, 0, 0,
+        0, 0, 3, 0,     0, 0, 0, 0,     2, 0, 0, 0,     1, 0, 0, 0,
+        1, 1, 0, 1,     0, 0, 1, 0,     0, 0, 0, 0,     0, 0, 0, 0,
+        0, 0, 3, 0,     2, 0, 1, 0,     2, 0, 3, 0,     0, 0, 4, 0,
+        0, 0, 0, 0,     4, 0, 4, 0,     0, 0, 0, 0,     0, 0, 0, 0,
+        0, 0, 3, 0,     0, 0, 0, 0,     2, 0, 3, 0,     2, 0, 1, 0
+
+    };
+    #endregion
+
     private int m_CodeIndex = 4;
 
     /* If the rendering is ahead of the music, increase this number */
-    [SerializeField] public int m_AddedSampleDelay = 2000;
+    [SerializeField] public int m_AddedSampleDelay = 0;
 
     private int m_ActiveCount = -1;
     private float m_Score = 0.0f;
@@ -136,17 +238,23 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         // Set up the audio source component
-        m_Source = GetComponent<AudioSource>();
-        m_Source.Stop();
-        m_Source.clip = m_Clip;
+        MainSource = GetComponent<AudioSource>();
+        MainSource.Stop();
+        MainSource.clip = m_Clip;
 
         // Calculate the samples per beat and handle delay
-        m_SamplesPerBeat = (int)(m_Clip.frequency / (m_BPM / 60.0f));
+        m_SamplesPerBeat = (int)(m_Clip.frequency / (m_BPM * 4 / 60.0f));
         m_NextBeatSample = m_AddedSampleDelay;
 
         // Set a start time and schedule the song to start at that time
         m_StartTime = AudioSettings.dspTime + 1.0f;
-        m_Source.PlayScheduled(m_StartTime);
+        MainSource.PlayScheduled(m_StartTime);
+        marimbaPlayer.StartPlaying(m_StartTime);
+        drumsPlayer.StartPlaying(m_StartTime);
+        violinPlayer.StartPlaying(m_StartTime);
+        pianoPlayer.StartPlaying(m_StartTime);
+        eDrumsPlayer.StartPlaying(m_StartTime);
+        guitarPlayer.StartPlaying(m_StartTime);
     }
 
     // Update is called once per frame
@@ -155,7 +263,7 @@ public class AudioManager : MonoBehaviour
         if (AudioSettings.dspTime < m_StartTime)
             return;
 
-        int currentSample = m_Source.timeSamples;
+        int currentSample = MainSource.timeSamples;
 
         // Execute logic for hitting a beat
         if (currentSample >= m_NextBeatSample)
@@ -163,10 +271,10 @@ public class AudioManager : MonoBehaviour
             m_LastBeatSample = m_NextBeatSample;
             m_NextBeatSample += m_SamplesPerBeat;
 
-            if (m_CodeIndex == m_SongCodes.Length)
+            if (m_CodeIndex == currentChart.Length)
                 return;
 
-            if (m_SongCodes[m_CodeIndex] == 0)
+            if (currentChart[m_CodeIndex] == 0)
             {
                 m_CodeIndex++;
                 return;
@@ -176,8 +284,8 @@ public class AudioManager : MonoBehaviour
             if (m_ActiveCount > 0)
             {
                 int codeIndex = m_SpawnDropsEarly ? m_CodeIndex + m_BeatsPerDrop : m_CodeIndex;
-                Vector2 spawnPoint = new Vector2(transform.position.x + ((m_SongCodes[codeIndex] - 2.5f) * 2), transform.position.y);
-                Lane lane = m_Lanes[m_SongCodes[m_CodeIndex] - 1];
+                Vector2 spawnPoint = new Vector2(transform.position.x + ((currentChart[codeIndex] - 2.5f) * 2), transform.position.y);
+                Lane lane = m_Lanes[currentChart[m_CodeIndex] - 1];
                 GameObject instance = Instantiate(lane.prefab, spawnPoint, Quaternion.identity);
                 m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * m_BeatsPerDrop), m_MaxMargin));
                 m_ActiveCount--;
@@ -203,7 +311,10 @@ public class AudioManager : MonoBehaviour
             if (m_ActiveCount == 0)
             {
                 if (m_KeyPresses == 0)
+                {
                     OnSessionFinished?.Invoke(this, 0.0f);
+                    currentPlayer.Mute();
+                }
                 else
                 {
                     print("Key Presses:" + m_KeyPresses);
@@ -252,8 +363,9 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Activate(int beats, float maxMargin, int beatsPerDrop, bool spawnDropsEarly, Lane lane1, Lane lane2, Lane lane3, Lane lane4)
+    public void Activate(Instrument instrument, int beats, float maxMargin, int beatsPerDrop, bool spawnDropsEarly, Lane lane1, Lane lane2, Lane lane3, Lane lane4)
     {
+        CurrentInstrument = instrument;
         m_ActiveCount = beats;
         m_Score = 0.0f;
         m_KeyPresses = 0;
@@ -261,6 +373,7 @@ public class AudioManager : MonoBehaviour
         m_MaxMargin = maxMargin;
         m_BeatsPerDrop = beatsPerDrop;
         m_SpawnDropsEarly = spawnDropsEarly;
+        currentPlayer.Unmute();
 
         m_Lanes[0] = lane1;
         lane1.Id = 0;

@@ -289,7 +289,7 @@ PrefabInstance:
     - target: {fileID: 548670500285560504, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
       propertyPath: difficulties.Array.data[0].minigame
       value: 
-      objectReference: {fileID: 11400000, guid: 5599d2664a3674f2c8419fe3b73c2278, type: 2}
+      objectReference: {fileID: 11400000, guid: 2c4131fe12fc743aa9884f25f2435461, type: 2}
     - target: {fileID: 5958530354000325387, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -398,12 +398,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2152134079937910860, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 26883cd4e08a140d0a73810ee42a4d37, type: 3}
     - target: {fileID: 5023675498773752052, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5523709766996158820, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3db7cd8cbceaa4383a43a83bb9c77718, type: 3}
+    - target: {fileID: 6438267620754361897, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
+      propertyPath: m_BPM
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6438267620754361897, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
+      propertyPath: m_Clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 26883cd4e08a140d0a73810ee42a4d37, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 68166277789961808, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
@@ -460,7 +477,12 @@ PrefabInstance:
       value: BattleManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 472226427145189946, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+    - {fileID: 5746614555534112605, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+    - {fileID: 6061565957746555642, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+    - {fileID: 434735602684437245, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+    - {fileID: 5734946262088143863, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}

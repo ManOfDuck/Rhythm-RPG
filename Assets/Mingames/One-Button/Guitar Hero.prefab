@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4787314406899601771}
   - component: {fileID: 4178663046901623888}
   m_Layer: 0
-  m_Name: Down Arrow
+  m_Name: Guitar Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

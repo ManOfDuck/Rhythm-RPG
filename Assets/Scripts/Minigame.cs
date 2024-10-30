@@ -10,6 +10,7 @@ public class Minigame : ScriptableObject
         SpawnOnBeat,
         ReachEndOnBeat
     }
+    [SerializeField] AudioManager.Instrument instrument;
     [SerializeField] GameObject stage;
     [SerializeField] public int beatLength;
     [SerializeField] public int beatsPerDrop = 4;
@@ -32,7 +33,7 @@ public class Minigame : ScriptableObject
         {
             spawnedStage = Instantiate(stage);
         }
-        AudioManager.Instance.Activate(beatLength, maxHitMargin, beatsPerDrop, spawnDropsEarly, lane1, lane2, lane3, lane4);
+        AudioManager.Instance.Activate(instrument, beatLength, maxHitMargin, beatsPerDrop, spawnDropsEarly, lane1, lane2, lane3, lane4);
         AudioManager.Instance.OnSessionFinished += MinigameFinished;
     }
 

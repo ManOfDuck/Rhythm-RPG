@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5958530354000325387}
   - component: {fileID: 548670500285560504}
   m_Layer: 0
-  m_Name: TestMove
+  m_Name: Piano Tiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
