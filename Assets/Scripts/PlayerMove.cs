@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
     {
         battleManager = BattleManager.Instance;
         // TESTING
-        GoFightMode();
+       // GoFightMode();
     }
 
     public void GoFightMode()
@@ -66,6 +66,10 @@ public class PlayerMove : MonoBehaviour
             {
                 battleManager.InflictEnemyStatus(statusChacne.status);
             }
+        }
+
+        if (BattleManager.Instance.phase == BattleManager.Phase.PlayerTurn){
+
         }
     }
 

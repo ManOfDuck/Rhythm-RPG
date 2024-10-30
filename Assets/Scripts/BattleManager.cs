@@ -15,6 +15,7 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] public float maxPlayerHealth = 100;
     [SerializeField] public float maxEnemyHealth = 1000;
+    [SerializeField] private List<PlayerMove> enemyMoves;
 
     public static BattleManager Instance { get; private set; } = null;
 
@@ -23,6 +24,7 @@ public class BattleManager : MonoBehaviour
     public List<StatusEffect> playerStatuses = new();
     public List<StatusEffect> enemyStatuses = new();
 
+    public Phase phase = Phase.PlayerTurn;
     public UnityEvent<Phase> phaseUpdated;
     public UnityEvent<float> playerHealed;
     public UnityEvent<float> playerHurt;

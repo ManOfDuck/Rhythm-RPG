@@ -67,15 +67,15 @@ public class AudioManager : MonoBehaviour
                     break;
                 case Instrument.Piano:
                     currentPlayer = pianoPlayer;
-                    currentChart = MarimbaChart;
+                    currentChart = PianoCodes;
                     break;
                 case Instrument.eDrums:
                     currentPlayer = eDrumsPlayer;
-                    currentChart = DrumChart;
+                    currentChart = PadCodes;
                     break;
                 case Instrument.guitar:
                     currentPlayer = guitarPlayer;
-                    currentChart = HornChart;
+                    currentChart = GuitarCodes;
                     break;
                 default:
                     currentChart = TestChart;
@@ -136,6 +136,58 @@ public class AudioManager : MonoBehaviour
         0, 0, 3, 0,     0, 0, 0, 0,     2, 0, 3, 0,     2, 0, 1, 0
 
     };
+
+    int[] GuitarCodes = {
+
+    1, 0, 2, 0,     1, 0, 3, 0,     0, 0, 1, 0,     2, 0, 1, 0,
+    4, 0, 0, 0,     4, 0, 0, 0,     3, 2, 1, 0,     2, 0, 1, 0,
+    0, 0, 2, 0,     3, 0, 2, 0,     1, 0, 0, 0,     1, 0, 2, 0,
+    0, 0, 0, 0,     0, 0, 0, 0,     3, 2, 1, 0,     2, 0, 3, 0,
+    4, 0, 4, 4,     0, 4, 4, 0,     4, 4, 0, 4,     4, 0, 4, 0,
+    4, 3, 2, 4,     3, 2, 4, 3,     2, 4, 3, 2,     4, 3, 2, 3,
+    3, 0, 3, 0,     1, 0, 2, 0,     3, 0, 3, 0,     1, 0, 2, 0,
+    3, 0, 3, 0,     2, 0, 3, 0,     0, 0, 0, 0,     0, 0, 0, 0
+
+};
+
+    int[] PianoCodes = {
+
+    1, 0, 2, 0,     3, 0, 4, 0,     4, 0, 0, 0,     0, 0, 3, 4,
+    0, 3, 4, 0,     0, 0, 0, 0,     0, 0, 0, 0,     0, 0, 0, 0,
+    0, 0, 4, 0,     3, 0, 0, 0,     3, 0, 2, 0,     1, 0, 2, 0,
+    0, 1, 2, 1,     3, 0, 0, 1,     2, 1, 3, 0,     0, 0, 0, 0,
+    3, 0, 4, 0,     2, 0, 1, 0,     0, 0, 3, 0,     4, 0, 2, 0,
+    1, 0, 0, 0,     3, 0, 4, 0,     2, 0, 1, 0,     0, 0, 2, 0,
+    2, 0, 1, 2,     0, 3, 4, 0,     0, 0, 4, 0,     3, 0, 2, 0,
+    1, 0, 0, 0,     0, 0, 0, 0,     0, 0, 0, 0,     0, 0, 0, 0
+
+};
+
+    int[] StringCodes = {
+
+    4, 0, 0, 0,     0, 0, 0, 0,     0, 0, 0, 0,     0, 0, 0, 0,
+    2, 1, 2, 1,     2, 1, 2, 1,     2, 1, 2, 1,     1, 2, 3, 4,
+    0, 0, 1, 0,     0, 0, 1, 0,     0, 0, 1, 0,     0, 0, 1, 0,
+    2, 0, 1, 0,     2, 0, 1, 0,     2, 1, 3, 2,     4, 3, 3, 4,
+    0, 0, 1, 0,     0, 0, 2, 0,     0, 0, 3, 0,     0, 0, 4, 0,
+    4, 0, 0, 0,     3, 0, 0, 0,     2, 0, 0, 0,     1, 0, 0, 0,
+    4, 0, 3, 0,     4, 0, 2, 0,     3, 0, 2, 0,     3, 0, 1, 0,
+    2, 0, 1, 0,     2, 0, 3, 0,     4, 0, 2, 0,     3, 0, 1, 0
+
+};
+
+    int[] PadCodes = {
+
+    3, 0, 3, 0,     1, 0, 3, 3,     0, 3, 3, 0,     1, 0, 2, 3,
+    0, 0, 3, 0,     1, 0, 3, 3,     0, 3, 3, 0,     2, 2, 4, 4,
+    3, 0, 3, 0,     1, 0, 3, 3,     0, 3, 3, 0,     1, 0, 2, 3,
+    0, 0, 3, 0,     1, 0, 3, 3,     0, 3, 3, 1,     2, 1, 2, 1,
+    1, 0, 4, 0,     2, 0, 4, 0,     0, 0, 4, 0,     2, 0, 4, 2,
+    1, 0, 4, 0,     2, 0, 4, 4,     0, 4, 4, 0,     2, 0, 4, 2,
+    1, 0, 4, 0,     4, 0, 1, 0,     3, 0, 3, 0,     1, 0, 2, 0,
+    2, 3, 2, 3,     3, 4, 3, 4,     4, 1, 4, 1,     3, 1, 1, 3
+
+};
     #endregion
 
     private int m_CodeIndex = 4;
@@ -271,24 +323,26 @@ public class AudioManager : MonoBehaviour
             m_LastBeatSample = m_NextBeatSample;
             m_NextBeatSample += m_SamplesPerBeat;
 
-            if (m_CodeIndex == currentChart.Length)
-                return;
+            //if (m_CodeIndex == currentChart.Length)
+            //   return;
 
-            if (currentChart[m_CodeIndex] == 0)
+            int codeIndex = m_SpawnDropsEarly ? m_CodeIndex % 128 + m_BeatsPerDrop : m_CodeIndex % 128;
+
+            if (currentChart[codeIndex] == 0)
             {
                 m_CodeIndex++;
+                m_ActiveCount--;
                 return;
             }
-
             // Spawn the beat in a position based on the value of the current song code
             if (m_ActiveCount > 0)
             {
-                int codeIndex = m_SpawnDropsEarly ? m_CodeIndex + m_BeatsPerDrop : m_CodeIndex;
                 Vector2 spawnPoint = new Vector2(transform.position.x + ((currentChart[codeIndex] - 2.5f) * 2), transform.position.y);
-                Lane lane = m_Lanes[currentChart[m_CodeIndex] - 1];
+                Lane lane = m_Lanes[currentChart[codeIndex] - 1];
                 GameObject instance = Instantiate(lane.prefab, spawnPoint, Quaternion.identity);
                 m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * m_BeatsPerDrop), m_MaxMargin));
                 m_ActiveCount--;
+                print(m_ActiveCount);
             }
 
             m_CodeIndex++;
@@ -310,10 +364,10 @@ public class AudioManager : MonoBehaviour
             // Fire the session score if all drops have been handeled
             if (m_ActiveCount == 0)
             {
+                currentPlayer.Mute();
                 if (m_KeyPresses == 0)
                 {
                     OnSessionFinished?.Invoke(this, 0.0f);
-                    currentPlayer.Mute();
                 }
                 else
                 {

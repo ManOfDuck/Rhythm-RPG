@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e590f43a58d85447ead8523d35797d8f, type: 3}
   m_Name: Guitar Hero
   m_EditorClassIdentifier: 
-  instrument: 2
+  instrument: 5
   stage: {fileID: 0}
   beatLength: 96
   beatsPerDrop: 4
@@ -20,25 +20,25 @@ MonoBehaviour:
   spawnBehavior: 1
   lane1:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 1}
+    endPos: {x: -4, y: 0}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32
   lane2:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 2}
+    endPos: {x: -4, y: 0}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32
   lane3:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 3}
+    endPos: {x: -4, y: 0}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32
   lane4:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 4}
+    endPos: {x: -4, y: 0}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32

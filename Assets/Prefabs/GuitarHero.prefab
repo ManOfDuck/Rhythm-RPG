@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5958530354000325387}
   - component: {fileID: 548670500285560504}
   m_Layer: 0
-  m_Name: DDR
+  m_Name: GuitarHero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   moveName: Test
   moveDescription: Hello I am the test move
   difficulties:
-  - minigame: {fileID: 11400000, guid: 2c4131fe12fc743aa9884f25f2435461, type: 2}
+  - minigame: {fileID: 11400000, guid: 64492566107fe4d15bb3ee9ef8cf8279, type: 2}
     enemyDamageRange:
       range: {x: 10, y: 100}
       minScore: 0.1

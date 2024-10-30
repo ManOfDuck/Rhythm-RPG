@@ -78,6 +78,7 @@ public class PauseUI : MonoBehaviour
         Debug.Log("1");
         //call minigame
         PlayerMove1.GoFightMode();
+        BattleManager.Instance.phase = BattleManager.Phase.PlayerTurn;
     }
 
     private void AttackButton2Pressed()
@@ -85,6 +86,7 @@ public class PauseUI : MonoBehaviour
         Debug.Log("2");
         //call minigame
         PlayerMove2.GoFightMode();
+        BattleManager.Instance.phase = BattleManager.Phase.PlayerTurn;
     }
 
     private void AttackButton3Pressed()
@@ -92,6 +94,7 @@ public class PauseUI : MonoBehaviour
         Debug.Log("3");
         //calll minigame
         PlayerMove3.GoFightMode();
+        BattleManager.Instance.phase = BattleManager.Phase.PlayerTurn;
     }
 
 }
