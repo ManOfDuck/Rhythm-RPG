@@ -320,7 +320,15 @@ public class AudioManager : MonoBehaviour
                     print("Key Presses:" + m_KeyPresses);
                     print("Expected Presses:" + m_ExpectedPresses);
                     print("overall score: " + m_Score);
-                    float percent = m_Score / ((m_KeyPresses > m_ExpectedPresses) ? m_KeyPresses : m_ExpectedPresses);
+                    float percent;
+                    if (m_Score == 0)
+                    {
+                        percent = 0;
+                    }
+                    else
+                    {
+                        percent = m_Score / ((m_KeyPresses > m_ExpectedPresses) ? m_KeyPresses : m_ExpectedPresses);
+                    } 
                     print("percent: " + percent);
                     //percent = (percent > 1.0f) ? (2.0f - percent) : percent;
                     OnSessionFinished?.Invoke(this, percent);
