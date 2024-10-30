@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="background" style="flex-grow: 1;">
+        <ui:VisualElement style="flex-grow: 1; height: 50%; width: 80%; left: 10%; top: 0; right: 0; bottom: 0; align-items: auto; justify-content: center;">
+            <ui:GroupBox style="height: 60%; width: 20%; align-self: flex-end; left: 0; top: 30%; position: relative; justify-content: space-around;">
+                <ui:VisualElement name="HeroIcon" style="flex-grow: 1; align-self: stretch; background-color: rgba(0, 41, 255, 0);" />
+                <ui:Label tabindex="-1" text="10/10&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HeroHealth" style="-unity-font: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-font-style: bold; font-size: 60px; justify-content: flex-start; -unity-text-align: middle-center;" />
+                <ui:VisualElement name="VillianIcon" style="flex-grow: 1; align-self: stretch; background-color: rgba(255, 0, 0, 0); -unity-background-image-tint-color: rgb(255, 255, 255);" />
+                <ui:Label tabindex="-1" text="10/10&#10;" parse-escape-sequences="true" display-tooltip-when-elided="true" name="VillianHealth" style="align-self: auto; -unity-font: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); font-size: 60px; -unity-font-style: bold; -unity-text-align: middle-center;" />
+            </ui:GroupBox>
+            <ui:GroupBox style="height: 60%; width: 20%; align-items: stretch; align-self: flex-start; justify-content: space-around; top: -330px; left: 0;">
+                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="attack1-button" style="width: 100%; height: 30%; align-self: stretch;" />
+                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="attack2-button" style="width: 100%; height: 30%; align-self: stretch;" />
+                <ui:Button text="Button" parse-escape-sequences="true" display-tooltip-when-elided="true" name="attack3-button" style="width: 100%; height: 30%; align-self: stretch;" />
+            </ui:GroupBox>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
