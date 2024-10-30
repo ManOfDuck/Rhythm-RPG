@@ -36,15 +36,19 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         battleManager = BattleManager.Instance;
+        // TESTING
+        GoFightMode();
     }
 
     public void GoFightMode()
     {
+        print("Minigame Started");
         CurrentDifficulty.minigame.StartMinigame(this);
     }
 
     public void MinigameFinished(float score)
     {
+        print("Minigame Finished with score: " + score);
         battleManager.HurtEnemy(CurrentDifficulty.enemyDamageRange.CalcDamage(score));
         battleManager.HurtPlayer(CurrentDifficulty.playerDamageRange.CalcDamage(score));
         battleManager.HealPlayer(CurrentDifficulty.playerHealRange.CalcDamage(score));
@@ -68,12 +72,12 @@ public class PlayerMove : MonoBehaviour
     [System.Serializable]
     public class DifficultyLevel
     {
+        public Minigame minigame;
         public DamageRange enemyDamageRange;
         public DamageRange playerDamageRange;
         public DamageRange playerHealRange;
         public List<StatusChance> playerStatusChances = new();
         public List<StatusChance> enemyStatusChances = new();
-        public Minigame minigame;
     }
 
 

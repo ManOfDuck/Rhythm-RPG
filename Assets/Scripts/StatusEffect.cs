@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class StatusEffect : MonoBehaviour
+public class StatusEffect
 {
-    public string displayName = "";
-    public string description = "";
-
     public enum Effect
     {
         Poisoned,
@@ -19,10 +16,10 @@ public class StatusEffect : MonoBehaviour
     public Effect effect;
     public float intensity;
     public int length;
-    public int turnsRemaining;
+    public int TurnsRemaining { get; set; }
 
     public void Start()
     {
-        turnsRemaining = length;
+        TurnsRemaining = length;
     }
 }

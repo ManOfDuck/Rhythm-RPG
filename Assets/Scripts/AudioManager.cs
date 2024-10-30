@@ -7,7 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
-
     public static AudioManager Instance { get; private set; }
 
     public event EventHandler<float> OnSessionFinished;
@@ -40,28 +39,15 @@ public class AudioManager : MonoBehaviour
     private int m_CodeIndex = 4;
 
     /* If the rendering is ahead of the music, increase this number */
-    private int m_AddedSampleDelay = 0;
+    [SerializeField] public int m_AddedSampleDelay = 2000;
 
     private int m_ActiveCount = -1;
     private float m_Score = 0.0f;
     private int m_KeyPresses = 0;
     private int m_ExpectedPresses = 0;
+    private float m_MaxMargin = 0.1f;
 
     private Lane[] m_Lanes = new Lane[4];
-
-    struct Lane
-    {
-        public Vector2 startPos;
-        public Vector2 endPos;
-        public KeyCode code;
-
-        public Lane(Vector2 s, Vector2 e, KeyCode c)
-        {
-            startPos = s;
-            endPos = e;
-            code = c;
-        }
-    }
 
     class Drop
     {
@@ -70,41 +56,24 @@ public class AudioManager : MonoBehaviour
         private int m_StartSample;
         private int m_EndSample;
         private float m_FadeCounter;
+        private bool m_HitYet = false;
+        private float m_MaxMargin = 0.0f;
 
-        public Drop(GameObject dropInstance, Lane lane, int startSample, int endSample)
+        public Drop(GameObject dropInstance, Lane lane, int startSample, int endSample, float maxMargin = 0.15f)
         {
             m_DropInstance = dropInstance;
             m_Lane = lane;
             m_StartSample = startSample;
             m_EndSample = endSample;
             m_FadeCounter = 0.0f;
+            m_MaxMargin = maxMargin;
         }
 
         /* Updates the drop based on where we are in the song, returns false if the drop is finished fading out */ 
         public bool Update(int currentSample)
         {
-            // We have hit the bottom bound
-            if (currentSample >= m_EndSample)
-            {
-                m_DropInstance.transform.position = m_Lane.endPos;
-
-                // We are still fading out
-                if (m_FadeCounter < 0.25f)
-                {
-                    float alpha = Mathf.Lerp(1.0f, 0.0f, m_FadeCounter / 0.25f);
-                    m_DropInstance.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
-                    m_FadeCounter += Time.deltaTime;
-                    return true;
-                }
-
-                // We are done fading out
-                Destroy(m_DropInstance);
-                return false;
-            }
-
-            // We have not hit the bottom bound and should move down
-            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.endPos, Margin(currentSample));
-            return true;
+            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.MovementTarget, Margin(currentSample)/2);
+            return !m_HitYet;
         }
 
         /* Returns the percent of how close this drop is to being done, this can be over 100% if the drop has already finished */
@@ -116,6 +85,30 @@ public class AudioManager : MonoBehaviour
         public Lane GetLane()
         {
             return m_Lane;
+        }
+
+        public bool DoesClickHit()
+        {
+            if (m_DropInstance.TryGetComponent<Collider2D>(out Collider2D collider))
+            {
+                Vector2 mousePoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                return collider.OverlapPoint(mousePoint);
+            }
+            else return true;
+        }
+
+        public bool CanBeHit(int currentSample)
+        {
+            return m_EndSample - (m_MaxMargin * (m_EndSample - m_StartSample)) < currentSample && currentSample < m_EndSample + (m_MaxMargin * (m_EndSample - m_StartSample));
+        }
+
+        public void Hit(float dropPercentage, float score)
+        {
+            m_HitYet = true;
+            if (m_DropInstance.TryGetComponent<DropInstance>(out DropInstance instance))
+            {
+                instance.Hit(dropPercentage, score);
+            }
         }
     }
 
@@ -148,23 +141,6 @@ public class AudioManager : MonoBehaviour
         // Set a start time and schedule the song to start at that time
         m_StartTime = AudioSettings.dspTime + 1.0f;
         m_Source.PlayScheduled(m_StartTime);
-
-        // TESTING ONLY
-        Invoke("TestActivate", 0.0f);
-        OnSessionFinished += AudioManager_OnSessionFinished;
-    }
-
-    // TESTING ONLY
-    private void AudioManager_OnSessionFinished(object sender, float e)
-    {
-        Debug.Log(e);
-        Invoke("TestActivate", 0.0f);
-    }
-
-    // TESTING ONLY
-    private void TestActivate()
-    {
-        Activate(8, new Vector2(-3, 6), new Vector2(-3, -4f), new Vector2(-1, 6), new Vector2(-1, -4f), new Vector2(1, 6), new Vector2(1, -4f), new Vector2(3, 6), new Vector2(3, -4f), KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4);
     }
 
     // Update is called once per frame
@@ -194,8 +170,9 @@ public class AudioManager : MonoBehaviour
             if (m_ActiveCount > 0)
             {
                 Vector2 spawnPoint = new Vector2(transform.position.x + ((m_SongCodes[m_CodeIndex] - 2.5f) * 2), transform.position.y);
-                GameObject instance = Instantiate(m_DropPrefab, spawnPoint, Quaternion.identity);
-                m_Drops.Add(new Drop(instance, m_Lanes[m_SongCodes[m_CodeIndex] - 1], m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4)));
+                Lane lane = m_Lanes[m_SongCodes[m_CodeIndex] - 1];
+                GameObject instance = Instantiate(lane.prefab, spawnPoint, Quaternion.identity);
+                m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4), m_MaxMargin));
                 m_ActiveCount--;
             }
 
@@ -222,8 +199,12 @@ public class AudioManager : MonoBehaviour
                     OnSessionFinished?.Invoke(this, 0.0f);
                 else
                 {
+                    print("Key Presses:" + m_KeyPresses);
+                    print("Expected Presses:" + m_ExpectedPresses);
+                    print("overall score: " + m_Score);
                     float percent = m_Score / ((m_KeyPresses > m_ExpectedPresses) ? m_KeyPresses : m_ExpectedPresses);
-                    percent = (percent > 1.0f) ? (2.0f - percent) : percent;
+                    print("percent: " + percent);
+                    //percent = (percent > 1.0f) ? (2.0f - percent) : percent;
                     OnSessionFinished?.Invoke(this, percent);
                 }
                 m_ActiveCount = -1;
@@ -232,28 +213,53 @@ public class AudioManager : MonoBehaviour
         }
 
         // Handle input
-        Drop next = m_Drops[0];
+        List<KeyCode> codesCounted = new();
         for (int f = 0; f < 4; f++)
         {
-            if (Input.GetKeyDown(m_Lanes[f].code))
+            Lane lane = m_Lanes[f];
+            if (Input.GetKeyDown(lane.code))
             {
-                m_KeyPresses++;
-                if (next.GetLane().code == m_Lanes[f].code)
-                    m_Score += next.Margin(currentSample);
+                if (!codesCounted.Contains(lane.code))
+                {
+                    m_KeyPresses++;
+                    codesCounted.Add(lane.code);
+                }
+            }
+        }
+
+        foreach (Drop drop in m_Drops)
+        {
+            if (drop.CanBeHit(currentSample) && Input.GetKeyDown(drop.GetLane().code))
+            {
+                if (drop.GetLane().code == KeyCode.Mouse0 && !drop.DoesClickHit())
+                {
+                    continue;
+                }
+                float percentDone = drop.Margin(currentSample);
+                float dropScore = percentDone > 1.0f ? 2.0f - percentDone : percentDone;
+                print("drop score: " + dropScore);
+                m_Score += dropScore;
+                drop.Hit(percentDone, dropScore);
+                break;
             }
         }
     }
 
-    public void Activate(int beats, Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2, Vector2 s3, Vector2 e3, Vector2 s4, Vector2 e4, KeyCode c1, KeyCode c2, KeyCode c3, KeyCode c4)
+    public void Activate(int beats, float maxMargin, Lane lane1, Lane lane2, Lane lane3, Lane lane4)
     {
         m_ActiveCount = beats;
         m_Score = 0.0f;
         m_KeyPresses = 0;
         m_ExpectedPresses = beats;
+        m_MaxMargin = maxMargin;
 
-        m_Lanes[0] = new Lane(s1, e1, c1);
-        m_Lanes[1] = new Lane(s2, e2, c2);
-        m_Lanes[2] = new Lane(s3, e3, c3);
-        m_Lanes[3] = new Lane(s4, e4, c4);
+        m_Lanes[0] = lane1;
+        lane1.Id = 0;
+        m_Lanes[1] = lane2;
+        lane2.Id = 1;
+        m_Lanes[2] = lane3;
+        lane3.Id = 2;
+        m_Lanes[3] = lane4;
+        lane4.Id = 3;
     }
 }

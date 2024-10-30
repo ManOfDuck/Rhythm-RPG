@@ -36,6 +36,7 @@ public class BattleManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -53,23 +54,28 @@ public class BattleManager : MonoBehaviour
     {
         playerHealth += amount;
         playerHealed.Invoke(amount);
+        print("Player healed for " + amount + ", new health at " + playerHealth);
     }
 
     public void HurtPlayer(float amount)
     {
         playerHealth -= amount;
         playerHurt.Invoke(amount);
+        print("Player hurt for " + amount + ", new health at " + playerHealth);
     }
 
     public void HealEnemy(float amount)
     {
         enemyHealth += amount;
         enemyHealed.Invoke(amount);
+        print("Enemy healed for " + amount + ", new health at " + enemyHealth);
     }
 
     public void HurtEnemy(float amount)
     {
+        print(enemyHealth);
         enemyHealth -= amount;
+        print("Enemy hurt for " + amount + ", new health at " + enemyHealth);
     }
 
     public void InflictPlayerStatus(StatusEffect status)
@@ -80,7 +86,8 @@ public class BattleManager : MonoBehaviour
         {
             if (existingStatus.effect == status.effect)
             {
-                existingStatus.turnsRemaining += status.length;
+                existingStatus.TurnsRemaining = Mathf.Max(existingStatus.TurnsRemaining, status.length);
+                existingStatus.intensity = Mathf.Max(existingStatus.intensity, status.intensity);
                 playerStatusesUpdated.Invoke();
                 return;
             }
@@ -105,7 +112,8 @@ public class BattleManager : MonoBehaviour
         {
             if (existingStatus.effect == status.effect)
             {
-                existingStatus.turnsRemaining += status.length;
+                existingStatus.TurnsRemaining = Mathf.Max(existingStatus.TurnsRemaining, status.length);
+                existingStatus.intensity = Mathf.Max(existingStatus.intensity, status.intensity);
                 enemyStatusesUpdated.Invoke();
                 return;
             }

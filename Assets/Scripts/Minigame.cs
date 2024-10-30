@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Minigame")]
 public class Minigame : ScriptableObject
 {
-    [SerializeField] public int defaultBeatLength;
+    [SerializeField] public int beatLength;
+    [SerializeField] public float maxHitMargin;
     [SerializeField] private Lane lane1;
     [SerializeField] private Lane lane2;
     [SerializeField] private Lane lane3;
@@ -15,21 +17,12 @@ public class Minigame : ScriptableObject
     public void StartMinigame(PlayerMove callback)
     {
         linkedMove = callback;
-        // Start minigame
-        // Link relevant event to MinigameFinished
+        AudioManager.Instance.Activate(beatLength, maxHitMargin, lane1, lane2, lane3, lane4);
+        AudioManager.Instance.OnSessionFinished += MinigameFinished;
     }
 
-    public void MinigameFinished(float score)
+    public void MinigameFinished(object sender, float score)
     {
         linkedMove.MinigameFinished(score);
-    }
-
-    [System.Serializable]
-    private class Lane
-    {
-        Vector2 startPos;
-        Vector2 endPos;
-        KeyCode key;
-        GameObject prefab;
     }
 }
