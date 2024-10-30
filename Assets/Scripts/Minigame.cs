@@ -17,22 +17,12 @@ public class Minigame : ScriptableObject
     public void StartMinigame(PlayerMove callback)
     {
         linkedMove = callback;
-        AudioManager.Instance.Activate(beatLength, maxHitMargin, lane1.startPos, lane1.endPos, lane2.startPos, lane2.endPos,
-            lane3.startPos, lane3.endPos, lane4.startPos, lane4.endPos, lane1.key, lane2.key, lane3.key, lane4.key);
+        AudioManager.Instance.Activate(beatLength, maxHitMargin, lane1, lane2, lane3, lane4);
         AudioManager.Instance.OnSessionFinished += MinigameFinished;
     }
 
     public void MinigameFinished(object sender, float score)
     {
         linkedMove.MinigameFinished(score);
-    }
-
-    [System.Serializable]
-    private class Lane
-    {
-        public Vector2 startPos;
-        public Vector2 endPos;
-        public KeyCode key;
-        public GameObject prefab;
     }
 }

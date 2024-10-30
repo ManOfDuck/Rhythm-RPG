@@ -49,24 +49,6 @@ public class AudioManager : MonoBehaviour
 
     private Lane[] m_Lanes = new Lane[4];
 
-    struct Lane
-    {
-        public Vector2 startPos;
-        public Vector2 endPos;
-        public Vector2 movementTarget;
-        public KeyCode code;
-        public int id;
-
-        public Lane(Vector2 s, Vector2 e, KeyCode c, int i)
-        {
-            startPos = s;
-            endPos = e;
-            code = c;
-            id = i;
-            movementTarget = ((endPos - startPos) * 2) + startPos;
-        }
-    }
-
     class Drop
     {
         private GameObject m_DropInstance;
@@ -90,7 +72,7 @@ public class AudioManager : MonoBehaviour
         /* Updates the drop based on where we are in the song, returns false if the drop is finished fading out */ 
         public bool Update(int currentSample)
         {
-            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.movementTarget, Margin(currentSample)/2);
+            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.MovementTarget, Margin(currentSample)/2);
             return !m_HitYet;
         }
 
@@ -159,24 +141,7 @@ public class AudioManager : MonoBehaviour
         // Set a start time and schedule the song to start at that time
         m_StartTime = AudioSettings.dspTime + 1.0f;
         m_Source.PlayScheduled(m_StartTime);
-
-        // TESTING ONLY
-        //Invoke("TestActivate", 0.0f);
-        //OnSessionFinished += AudioManager_OnSessionFinished;
     }
-
-    //// TESTING ONLY
-    //private void AudioManager_OnSessionFinished(object sender, float e)
-    //{
-    //    Debug.Log(e);
-    //    Invoke("TestActivate", 0.0f);
-    //}
-
-    //// TESTING ONLY
-    //private void TestActivate()
-    //{
-    //    Activate(8, new Vector2(-3, 6), new Vector2(-3, -4f), new Vector2(-1, 6), new Vector2(-1, -4f), new Vector2(1, 6), new Vector2(1, -4f), new Vector2(3, 6), new Vector2(3, -4f), KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4);
-    //}
 
     // Update is called once per frame
     void Update()
@@ -205,8 +170,9 @@ public class AudioManager : MonoBehaviour
             if (m_ActiveCount > 0)
             {
                 Vector2 spawnPoint = new Vector2(transform.position.x + ((m_SongCodes[m_CodeIndex] - 2.5f) * 2), transform.position.y);
-                GameObject instance = Instantiate(m_DropPrefab, spawnPoint, Quaternion.identity);
-                m_Drops.Add(new Drop(instance, m_Lanes[m_SongCodes[m_CodeIndex] - 1], m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4), m_MaxMargin));
+                Lane lane = m_Lanes[m_SongCodes[m_CodeIndex] - 1];
+                GameObject instance = Instantiate(lane.prefab, spawnPoint, Quaternion.identity);
+                m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * 4), m_MaxMargin));
                 m_ActiveCount--;
             }
 
@@ -279,7 +245,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Activate(int beats, float maxMargin, Vector2 s1, Vector2 e1, Vector2 s2, Vector2 e2, Vector2 s3, Vector2 e3, Vector2 s4, Vector2 e4, KeyCode c1, KeyCode c2, KeyCode c3, KeyCode c4)
+    public void Activate(int beats, float maxMargin, Lane lane1, Lane lane2, Lane lane3, Lane lane4)
     {
         m_ActiveCount = beats;
         m_Score = 0.0f;
@@ -287,9 +253,13 @@ public class AudioManager : MonoBehaviour
         m_ExpectedPresses = beats;
         m_MaxMargin = maxMargin;
 
-        m_Lanes[0] = new Lane(s1, e1, c1, 0);
-        m_Lanes[1] = new Lane(s2, e2, c2, 1);
-        m_Lanes[2] = new Lane(s3, e3, c3, 2);
-        m_Lanes[3] = new Lane(s4, e4, c4, 3);
+        m_Lanes[0] = lane1;
+        lane1.Id = 0;
+        m_Lanes[1] = lane2;
+        lane2.Id = 1;
+        m_Lanes[2] = lane3;
+        lane3.Id = 2;
+        m_Lanes[3] = lane4;
+        lane4.Id = 3;
     }
 }
