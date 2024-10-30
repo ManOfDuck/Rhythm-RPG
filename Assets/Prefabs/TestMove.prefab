@@ -1,0 +1,102 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8727522440882306471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5958530354000325387}
+  - component: {fileID: 548670500285560504}
+  - component: {fileID: 7582430384863760477}
+  m_Layer: 0
+  m_Name: TestMove
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5958530354000325387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727522440882306471}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &548670500285560504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727522440882306471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b16418828dc24351a1bb3f1e3d2e472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveName: Test
+  moveDescription: Hello I am the test move
+  difficulties:
+  - minigame: {fileID: 11400000, guid: 5599d2664a3674f2c8419fe3b73c2278, type: 2}
+    enemyDamageRange:
+      range: {x: 10, y: 100}
+      minScore: 0.1
+      maxScore: 1
+      variance: 1
+    playerDamageRange:
+      range: {x: 0, y: 0}
+      minScore: 0
+      maxScore: 0
+      variance: 0
+    playerHealRange:
+      range: {x: 0, y: 0}
+      minScore: 0
+      maxScore: 0
+      variance: 0
+    playerStatusChances:
+    - status:
+        effect: 0
+        intensity: 1
+        length: 2
+      chanceRange: {x: 0.5, y: 1}
+      minScore: 0.8
+      maxScore: 1
+    enemyStatusChances: []
+  _currentDifficultyIndex: 0
+--- !u!143 &7582430384863760477
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8727522440882306471}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
