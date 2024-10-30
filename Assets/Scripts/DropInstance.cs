@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DropInstance : MonoBehaviour
 {
+    [SerializeField] public float damage = 0f;
+
     public void Hit(float dropPercentage, float score)
     {
         StartCoroutine(OnHitCoroutine());

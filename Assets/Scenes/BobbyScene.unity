@@ -286,6 +286,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 548670500285560504, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
+      propertyPath: difficulties.Array.data[0].minigame
+      value: 
+      objectReference: {fileID: 11400000, guid: 5599d2664a3674f2c8419fe3b73c2278, type: 2}
     - target: {fileID: 5958530354000325387, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
