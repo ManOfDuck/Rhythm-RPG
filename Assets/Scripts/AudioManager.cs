@@ -55,9 +55,11 @@ public class AudioManager : MonoBehaviour
         private Lane m_Lane;
         private int m_StartSample;
         private int m_EndSample;
-        private float m_FadeCounter;
         private bool m_HitYet = false;
         private float m_MaxMargin = 0.0f;
+        private int FirstHittableSample => m_EndSample - (int) (m_MaxMargin * (m_EndSample - m_StartSample));
+        private int LastHittableSample => m_EndSample + (int) (m_MaxMargin * (m_EndSample - m_StartSample));
+        private int DespawnSample => m_StartSample + (int)(m_Lane.despawnPercent * (m_EndSample - m_StartSample));
 
         public Drop(GameObject dropInstance, Lane lane, int startSample, int endSample, float maxMargin = 0.15f)
         {
@@ -65,14 +67,16 @@ public class AudioManager : MonoBehaviour
             m_Lane = lane;
             m_StartSample = startSample;
             m_EndSample = endSample;
-            m_FadeCounter = 0.0f;
             m_MaxMargin = maxMargin;
         }
 
         /* Updates the drop based on where we are in the song, returns false if the drop is finished fading out */ 
         public bool Update(int currentSample)
         {
-            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.MovementTarget, Margin(currentSample)/2);
+            m_DropInstance.transform.position = Vector2.Lerp(m_Lane.startPos, m_Lane.DespawnPosition, Margin(currentSample) / m_Lane.despawnPercent);
+            if (currentSample > DespawnSample){
+                Hit(-1, -1);
+            }
             return !m_HitYet;
         }
 
@@ -99,7 +103,7 @@ public class AudioManager : MonoBehaviour
 
         public bool CanBeHit(int currentSample)
         {
-            return m_EndSample - (m_MaxMargin * (m_EndSample - m_StartSample)) < currentSample && currentSample < m_EndSample + (m_MaxMargin * (m_EndSample - m_StartSample));
+            return FirstHittableSample < currentSample && currentSample < LastHittableSample;
         }
 
         public void Hit(float dropPercentage, float score)
