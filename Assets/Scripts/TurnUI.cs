@@ -5,6 +5,10 @@ using UnityEngine.UIElements;
 
 public class PauseUI : MonoBehaviour
 {
+    [SerializeField] private PlayerMove PlayerMove1;
+    [SerializeField] private PlayerMove PlayerMove2;
+    [SerializeField] private PlayerMove PlayerMove3;
+
     private VisualElement root;
     private Label heroHealthLabel;
     private Label villianHealthLabel;
@@ -27,6 +31,38 @@ public class PauseUI : MonoBehaviour
 
         villianHealthLabel = root.Q<Label>("VillianHealth");
         heroHealthLabel = root.Q<Label>("HeroHealth");
+
+        BattleManager.Instance.enemyHealed.AddListener(ChangeHealthVillian);
+        BattleManager.Instance.enemyHurt.AddListener(ChangeHealthVillian);
+
+        BattleManager.Instance.playerHurt.AddListener(ChangeHealthHero);
+        BattleManager.Instance.playerHealed.AddListener(ChangeHealthHero);
+
+        BattleManager.Instance.playerStatusesUpdated.AddListener(ChangeHealthHero);
+        BattleManager.Instance.enemyStatusesUpdated.AddListener(ChangeHealthVillian);
+
+        ChangeHealthHero();
+        ChangeHealthVillian();
+    }
+
+    private void ChangeHealthHero(float i)
+    {
+        heroHealthLabel.text = BattleManager.Instance.playerHealth + "/" + BattleManager.Instance.maxPlayerHealth;
+    }
+
+    private void ChangeHealthVillian(float i)
+    {
+        villianHealthLabel.text = BattleManager.Instance.enemyHealth + "/" + BattleManager.Instance.maxEnemyHealth;
+    }
+
+    private void ChangeHealthHero()
+    {
+        heroHealthLabel.text = BattleManager.Instance.playerHealth + "/" + BattleManager.Instance.maxPlayerHealth;
+    }
+
+    private void ChangeHealthVillian()
+    {
+        villianHealthLabel.text = BattleManager.Instance.enemyHealth + "/" + BattleManager.Instance.maxEnemyHealth;
     }
 
     private void OnDestroy()
@@ -39,17 +75,23 @@ public class PauseUI : MonoBehaviour
 
     private void AttackButton1Pressed()
     {
+        Debug.Log("1");
         //call minigame
+        PlayerMove1.GoFightMode();
     }
 
     private void AttackButton2Pressed()
     {
+        Debug.Log("2");
         //call minigame
+        PlayerMove2.GoFightMode();
     }
 
     private void AttackButton3Pressed()
     {
+        Debug.Log("3");
         //calll minigame
+        PlayerMove3.GoFightMode();
     }
 
 }
