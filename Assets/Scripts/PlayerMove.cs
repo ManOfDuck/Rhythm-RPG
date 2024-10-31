@@ -67,10 +67,23 @@ public class PlayerMove : MonoBehaviour
                 battleManager.InflictEnemyStatus(statusChacne.status);
             }
         }
-
+        print(BattleManager.Instance.phase);
         if (BattleManager.Instance.phase == BattleManager.Phase.PlayerTurn){
-
+            BattleManager.Instance.phase = BattleManager.Phase.EnemyTurn;
+            StartCoroutine(GoDieMode());
         }
+        else if (BattleManager.Instance.phase == BattleManager.Phase.EnemyTurn)
+        {
+            print("go Player mode");
+            BattleManager.Instance.phase = BattleManager.Phase.PlayerTurn;
+        }
+
+    }
+
+    private IEnumerator GoDieMode()
+    {
+        yield return new WaitForSeconds(3);
+        BattleManager.Instance.EnemyTurn();
     }
 
     [System.Serializable]
@@ -99,6 +112,7 @@ public class PlayerMove : MonoBehaviour
                 return 0;
 
             float baseScore = ((score - minScore) / (maxScore - minScore) + minScore) * (range.y - range.x);
+            if (float.IsNaN(baseScore)) baseScore = 0;
             return baseScore + Random.Range(-variance, variance);
         }
     }
@@ -117,6 +131,7 @@ public class PlayerMove : MonoBehaviour
                 return false;
 
             float chance = ((score - minScore) / (maxScore - minScore) + minScore) * (chanceRange.y - chanceRange.x);
+            if (float.IsNaN(chance)) chance = 0;
             float roll = Random.Range(0, 1);
             return roll >= chance;
         }

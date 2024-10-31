@@ -13,32 +13,32 @@ MonoBehaviour:
   m_Name: Guitar Hero
   m_EditorClassIdentifier: 
   instrument: 5
-  stage: {fileID: 0}
+  stage: {fileID: 2673970800884453019, guid: 13eacddb457554b88911d13c183e28b7, type: 3}
   beatLength: 96
-  beatsPerDrop: 4
+  beatsPerDrop: 6
   maxHitMargin: 0.15
   spawnBehavior: 1
   lane1:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 0}
-    despawnPercent: 1.05
+    endPos: {x: -3.6, y: 0}
+    despawnPercent: 1.15
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32
   lane2:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 0}
-    despawnPercent: 1.05
+    endPos: {x: -3.6, y: 0}
+    despawnPercent: 1.15
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32
   lane3:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 0}
-    despawnPercent: 1.05
+    endPos: {x: -3.6, y: 0}
+    despawnPercent: 1.15
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32
   lane4:
     startPos: {x: 4, y: 0}
-    endPos: {x: -4, y: 0}
-    despawnPercent: 1.05
+    endPos: {x: -3.6, y: 0}
+    despawnPercent: 1.15
     prefab: {fileID: 5314307743801612315, guid: ba8f43966f87041e48852bd64cd10233, type: 3}
     code: 32

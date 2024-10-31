@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e590f43a58d85447ead8523d35797d8f, type: 3}
-  m_Name: Piano Tiles 1E
+  m_Name: DDR 1E
   m_EditorClassIdentifier: 
-  instrument: 0
+  instrument: 1
   stage: {fileID: 270348279093774737, guid: 46a7ce0e53e38496d9510e00c514c5f2, type: 3}
   beatLength: 96
   beatsPerDrop: 6

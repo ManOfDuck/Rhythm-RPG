@@ -52,6 +52,12 @@ public class BattleManager : MonoBehaviour
         enemyHealth = maxEnemyHealth;
     }
 
+    public void EnemyTurn()
+    {
+        int turn = Random.Range(0, enemyMoves.Count - 1);
+        enemyMoves[turn].GoFightMode();
+    }
+
     public void HealPlayer(float amount)
     {
         playerHealth += amount;
@@ -75,8 +81,8 @@ public class BattleManager : MonoBehaviour
 
     public void HurtEnemy(float amount)
     {
-        print(enemyHealth);
         enemyHealth -= amount;
+        enemyHurt.Invoke(amount);
         print("Enemy hurt for " + amount + ", new health at " + enemyHealth);
     }
 

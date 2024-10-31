@@ -47,22 +47,22 @@ public class PauseUI : MonoBehaviour
 
     private void ChangeHealthHero(float i)
     {
-        heroHealthLabel.text = BattleManager.Instance.playerHealth + "/" + BattleManager.Instance.maxPlayerHealth;
+        heroHealthLabel.text = (int) BattleManager.Instance.playerHealth + "/" + BattleManager.Instance.maxPlayerHealth;
     }
 
     private void ChangeHealthVillian(float i)
     {
-        villianHealthLabel.text = BattleManager.Instance.enemyHealth + "/" + BattleManager.Instance.maxEnemyHealth;
+        villianHealthLabel.text = (int) BattleManager.Instance.enemyHealth + "/" + BattleManager.Instance.maxEnemyHealth;
     }
 
     private void ChangeHealthHero()
     {
-        heroHealthLabel.text = BattleManager.Instance.playerHealth + "/" + BattleManager.Instance.maxPlayerHealth;
+        heroHealthLabel.text = (int) BattleManager.Instance.playerHealth + "/" + BattleManager.Instance.maxPlayerHealth;
     }
 
     private void ChangeHealthVillian()
     {
-        villianHealthLabel.text = BattleManager.Instance.enemyHealth + "/" + BattleManager.Instance.maxEnemyHealth;
+        villianHealthLabel.text = (int) BattleManager.Instance.enemyHealth + "/" + BattleManager.Instance.maxEnemyHealth;
     }
 
     private void OnDestroy()
@@ -75,6 +75,7 @@ public class PauseUI : MonoBehaviour
 
     private void AttackButton1Pressed()
     {
+        if (AudioManager.Instance.minigameGoing || BattleManager.Instance.phase == BattleManager.Phase.EnemyTurn) return;
         Debug.Log("1");
         //call minigame
         PlayerMove1.GoFightMode();
@@ -83,6 +84,7 @@ public class PauseUI : MonoBehaviour
 
     private void AttackButton2Pressed()
     {
+        if (AudioManager.Instance.minigameGoing || BattleManager.Instance.phase == BattleManager.Phase.EnemyTurn) return;
         Debug.Log("2");
         //call minigame
         PlayerMove2.GoFightMode();
@@ -91,6 +93,8 @@ public class PauseUI : MonoBehaviour
 
     private void AttackButton3Pressed()
     {
+        print(AudioManager.Instance.minigameGoing);
+        if (AudioManager.Instance.minigameGoing || BattleManager.Instance.phase == BattleManager.Phase.EnemyTurn) return;
         Debug.Log("3");
         //calll minigame
         PlayerMove3.GoFightMode();

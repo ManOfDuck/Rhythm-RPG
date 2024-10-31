@@ -14,6 +14,7 @@ public class InstrumentPlayer : MonoBehaviour
         source = GetComponent<AudioSource>();
         source.Stop();
         source.clip = song;
+        source.loop = true;
         Mute();
     }
 

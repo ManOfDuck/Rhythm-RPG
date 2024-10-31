@@ -143,7 +143,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.maxScore
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
       propertyPath: difficulties.Array.data[0].enemyDamageRange.minScore
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.variance
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
@@ -256,6 +264,102 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d32e170afcd4481998bc3876f9a4383, type: 3}
+--- !u!1001 &468459965
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].minigame
+      value: 
+      objectReference: {fileID: 11400000, guid: 07bddbd64232d471d8709336ae69481a, type: 2}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.range.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.range.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.maxScore
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.minScore
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.variance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].playerStatusChances.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727522440882306471, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_Name
+      value: EVIL ""GuitarHero""
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+--- !u!114 &468459966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+  m_PrefabInstance: {fileID: 468459965}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b16418828dc24351a1bb3f1e3d2e472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &475974734
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,7 +550,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -2
+  m_SortingOrder: -3
   m_Sprite: {fileID: 21300000, guid: b1bbabf17aa8f3f44898f33dc841fa37, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -643,6 +747,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+--- !u!114 &1563623530 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+  m_PrefabInstance: {fileID: 56591628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b16418828dc24351a1bb3f1e3d2e472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1585756865 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 548670500285560504, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
@@ -733,7 +848,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 21300000, guid: be6fdcb63cb131b42af5f1ba859eb4f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -764,6 +879,102 @@ Transform:
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
   m_PrefabInstance: {fileID: 1553829484}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b16418828dc24351a1bb3f1e3d2e472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &2146522099
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].minigame
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d9b57ec86ea34c5fa0a839a2fba3f9d, type: 2}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.range.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.range.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.maxScore
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.minScore
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.variance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: difficulties.Array.data[0].playerStatusChances.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958530354000325387, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8727522440882306471, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+      propertyPath: m_Name
+      value: EVIL ""DDR""
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+--- !u!114 &2146522100 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 548670500285560504, guid: 749c3295c0065df4c8d64fe79d175824, type: 3}
+  m_PrefabInstance: {fileID: 2146522099}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -843,6 +1054,10 @@ PrefabInstance:
       propertyPath: m_Clip
       value: 
       objectReference: {fileID: 8300000, guid: 26883cd4e08a140d0a73810ee42a4d37, type: 3}
+    - target: {fileID: 6438267620754361897, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
+      propertyPath: m_AddedSampleDelay
+      value: 10000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -896,6 +1111,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: maxEnemyHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: maxPlayerHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: enemyMoves.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: enemyMoves.Array.data[0]
+      value: 
+      objectReference: {fileID: 1563623530}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: enemyMoves.Array.data[1]
+      value: 
+      objectReference: {fileID: 2146522100}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: enemyMoves.Array.data[2]
+      value: 
+      objectReference: {fileID: 468459966}
     - target: {fileID: 8755976022346998300, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
       propertyPath: m_Name
       value: BattleManager
@@ -919,3 +1158,5 @@ SceneRoots:
   - {fileID: 1553829484}
   - {fileID: 977436647}
   - {fileID: 56591628}
+  - {fileID: 2146522099}
+  - {fileID: 468459965}

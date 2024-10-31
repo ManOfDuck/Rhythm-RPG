@@ -19,6 +19,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance { get; private set; }
 
     public event EventHandler<float> OnSessionFinished;
+    public bool minigameGoing = false;
 
     [SerializeField]
     private AudioClip m_Clip;
@@ -193,7 +194,7 @@ public class AudioManager : MonoBehaviour
     private int m_CodeIndex = 4;
 
     /* If the rendering is ahead of the music, increase this number */
-    [SerializeField] public int m_AddedSampleDelay = 0;
+    [SerializeField] public int m_AddedSampleDelay = 4000;
 
     private int m_ActiveCount = -1;
     private float m_Score = 0.0f;
@@ -292,6 +293,7 @@ public class AudioManager : MonoBehaviour
         // Set up the audio source component
         MainSource = GetComponent<AudioSource>();
         MainSource.Stop();
+        MainSource.loop = true;
         MainSource.clip = m_Clip;
 
         // Calculate the samples per beat and handle delay
@@ -326,12 +328,12 @@ public class AudioManager : MonoBehaviour
             //if (m_CodeIndex == currentChart.Length)
             //   return;
 
-            int codeIndex = m_SpawnDropsEarly ? m_CodeIndex % 128 + m_BeatsPerDrop : m_CodeIndex % 128;
+            int codeIndex = m_SpawnDropsEarly ? (m_CodeIndex + m_BeatsPerDrop) % 128 : m_CodeIndex % 128;
 
             if (currentChart[codeIndex] == 0)
             {
                 m_CodeIndex++;
-                m_ActiveCount--;
+                if (m_ActiveCount > 0) m_ActiveCount--;
                 return;
             }
             // Spawn the beat in a position based on the value of the current song code
@@ -342,7 +344,6 @@ public class AudioManager : MonoBehaviour
                 GameObject instance = Instantiate(lane.prefab, spawnPoint, Quaternion.identity);
                 m_Drops.Add(new Drop(instance, lane, m_LastBeatSample, m_LastBeatSample + (m_SamplesPerBeat * m_BeatsPerDrop), m_MaxMargin));
                 m_ActiveCount--;
-                print(m_ActiveCount);
             }
 
             m_CodeIndex++;
@@ -367,6 +368,7 @@ public class AudioManager : MonoBehaviour
                 currentPlayer.Mute();
                 if (m_KeyPresses == 0)
                 {
+                    minigameGoing = false;
                     OnSessionFinished?.Invoke(this, 0.0f);
                 }
                 else
@@ -385,6 +387,7 @@ public class AudioManager : MonoBehaviour
                     } 
                     print("percent: " + percent);
                     //percent = (percent > 1.0f) ? (2.0f - percent) : percent;
+                    minigameGoing = false;
                     OnSessionFinished?.Invoke(this, percent);
                 }
                 m_ActiveCount = -1;
@@ -435,7 +438,9 @@ public class AudioManager : MonoBehaviour
         m_MaxMargin = maxMargin;
         m_BeatsPerDrop = beatsPerDrop;
         m_SpawnDropsEarly = spawnDropsEarly;
+        print(spawnDropsEarly);
         currentPlayer.Unmute();
+        minigameGoing = true;
 
         m_Lanes[0] = lane1;
         lane1.Id = 0;

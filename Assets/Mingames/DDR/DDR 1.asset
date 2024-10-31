@@ -13,32 +13,32 @@ MonoBehaviour:
   m_Name: DDR 1
   m_EditorClassIdentifier: 
   instrument: 4
-  stage: {fileID: 0}
+  stage: {fileID: 5272470477040641678, guid: f6c1b989c989f45dd938687684220335, type: 3}
   beatLength: 96
   beatsPerDrop: 4
   maxHitMargin: 0.15
   spawnBehavior: 1
   lane1:
     startPos: {x: 0, y: 4}
-    endPos: {x: 0, y: 1}
+    endPos: {x: 0, y: 0.6}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: 3d70bdd9d9acd4e95ae49861b9dc8a37, type: 3}
     code: 273
   lane2:
     startPos: {x: 4, y: 0}
-    endPos: {x: 1, y: 0}
+    endPos: {x: 0.6, y: 0}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: ce0fd03dcd5f14490a5d461b3702b345, type: 3}
     code: 275
   lane3:
     startPos: {x: 0, y: -4}
-    endPos: {x: 0, y: -1}
+    endPos: {x: 0, y: -0.6}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: 093f2f948527a45338a59f1dda462483, type: 3}
     code: 274
   lane4:
     startPos: {x: -4, y: 0}
-    endPos: {x: -1, y: 0}
+    endPos: {x: -0.6, y: 0}
     despawnPercent: 1.05
     prefab: {fileID: 5314307743801612315, guid: 7116aa82642e443328f7ee6321e1c260, type: 3}
     code: 276

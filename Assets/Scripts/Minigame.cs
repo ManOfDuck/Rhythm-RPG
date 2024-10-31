@@ -44,5 +44,6 @@ public class Minigame : ScriptableObject
             Destroy(spawnedStage.gameObject);
         }
         linkedMove.MinigameFinished(score);
+        AudioManager.Instance.OnSessionFinished -= MinigameFinished;
     }
 }
