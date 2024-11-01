@@ -328,7 +328,7 @@ public class AudioManager : MonoBehaviour
             //if (m_CodeIndex == currentChart.Length)
             //   return;
 
-            int codeIndex = m_SpawnDropsEarly ? (m_CodeIndex + m_BeatsPerDrop) % 128 : m_CodeIndex % 128;
+            int codeIndex = m_SpawnDropsEarly ? (m_CodeIndex + m_BeatsPerDrop) % 128 : (m_CodeIndex) % 128;
 
             if (currentChart[codeIndex] == 0)
             {

@@ -16,7 +16,7 @@ MonoBehaviour:
   stage: {fileID: 5444058850801535251, guid: e3ac01e8c8b99471c88492d9963e594e, type: 3}
   beatLength: 96
   beatsPerDrop: 6
-  maxHitMargin: 0.15
+  maxHitMargin: 0.3
   spawnBehavior: 1
   lane1:
     startPos: {x: -3, y: 6}

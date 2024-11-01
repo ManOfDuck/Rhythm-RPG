@@ -432,6 +432,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 548670500285560504, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.range.y
+      value: 120
+      objectReference: {fileID: 0}
     - target: {fileID: 5958530354000325387, guid: 49f8abe2b5bb34d458e57f87f8c15637, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -698,6 +702,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+      propertyPath: difficulties.Array.data[0].playerHealRange.range.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+      propertyPath: difficulties.Array.data[0].playerHealRange.range.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+      propertyPath: difficulties.Array.data[0].enemyDamageRange.range.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+      propertyPath: difficulties.Array.data[0].playerHealRange.maxScore
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+      propertyPath: difficulties.Array.data[0].playerHealRange.minScore
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 548670500285560504, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
+      propertyPath: difficulties.Array.data[0].playerHealRange.variance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5958530354000325387, guid: c782eeaf36f251f4a9362d9e7d47db63, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1056,7 +1084,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 26883cd4e08a140d0a73810ee42a4d37, type: 3}
     - target: {fileID: 6438267620754361897, guid: b29475830c9ad46e384ac85ae7123c25, type: 3}
       propertyPath: m_AddedSampleDelay
-      value: 10000
+      value: 90000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1110,6 +1138,10 @@ PrefabInstance:
     - target: {fileID: 1213776283435177883, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
+      propertyPath: playerHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3485153999976747340, guid: 7d61d94253a404b599b9fee26fd11957, type: 3}
       propertyPath: maxEnemyHealth
